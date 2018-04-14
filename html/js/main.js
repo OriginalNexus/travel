@@ -16,4 +16,15 @@ $(document).ready(function()
 			$(this).addClass("activeSection");
 		}
 	});
+
+	$(".tripWrapper").click(function(event)
+	{
+		 if ( event.target != this) return;
+		 else console.log($(this)[0]);
+	});
+
+	$(".fa-trash").click(function()
+	{
+		console.log($(this)[0]);
+	});
 });
