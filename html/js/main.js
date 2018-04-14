@@ -17,3 +17,20 @@ $(document).ready(function()
 		}
 	});
 });
+
+function googleReady(auth2) {
+	$('.fa-sign-out-alt').click(function() {
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+			document.location = 'logout.php';
+		});
+	});
+
+	auth2.currentUser.listen(function(user) {
+		var googleUserInfo = user.getBasicProfile();
+		$('.userName').text(googleUserInfo.getName());
+		$('.userImage').attr({ src: googleUserInfo.getImageUrl() });
+	});;
+
+
+}

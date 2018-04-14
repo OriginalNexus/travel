@@ -18,8 +18,8 @@
 
 			<header>
 				<div class="leftHeader flexedContainer">
-					<img class="userImage" src="img/face.jpg" alt="">
-					<div class="userName">Cursaru Razvan Mihai</div>
+					<img class="userImage" alt="">
+					<div class="userName"></div>
 				</div>
 
 				<div class="middleHeader flexedContainer">
@@ -62,6 +62,8 @@
 
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/google.js"></script>
+		<script src="https://apis.google.com/js/platform.js?onload=initGoogle" async defer></script>
 	</body>
 
 </html>
