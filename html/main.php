@@ -15,8 +15,7 @@
 	</head>
 
 	<body>
-
-			<header>
+			<header class="noselect">
 				<div class="leftHeader flexedContainer">
 					<img class="userImage" alt="">
 					<div class="userName"></div>
@@ -33,11 +32,79 @@
 				</div>
 			</header>
 
-			<div class="mainWrapper">
+			<div class="mainWrapper">	<!-- There will be content loaded -->
+				<div class="upperTripsWrapper">
+					<div class="tripsLabel">Your trips</div>
+					<div class="newTripButton">New trip</div>
+				</div>
 
+				<div class="tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement"></i>
+				</div>
+				<div class="tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement"></i>
+				</div>
+				<div class="tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement"></i>
+				</div>
+				<div class="tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement"></i>
+				</div>
+				<div class="tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement"></i>
+				</div>
+				<div class="tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement"></i>
+				</div>
+				<div class="tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement"></i>
+				</div>
+				<div class="tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement"></i>
+				</div>
 			</div>
 
-			<footer>
+			<footer class="noselect">
 				<div class="homeWrapper flexedContainer">
 					<i class="fas fa-home uiElement"></i>
 					<div class="inlineFooterText">Home</div>

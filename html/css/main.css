@@ -18,6 +18,7 @@ body,html
 
 body
 {
+	background-color: rgba(0,0,0,0.05);
 	font-family: appleLightFont;
 }
 
@@ -69,7 +70,6 @@ header
 	/* grid-template-rows: auto; */
 	/* justify-items: center; */
 	align-items: center;
-
 	text-align: center;
 }
 
@@ -209,4 +209,122 @@ footer
 	color:rgb(142, 12, 34);
 	font-weight: bold;
 	opacity: 1;
+}
+/* -------------------------------------------------------------------------- */
+
+.mainWrapper
+{
+	margin-top:73px;
+	text-align: center;
+}
+
+.tripWrapper:last-child
+{
+	margin-bottom:58px;
+}
+
+.tripWrapper
+{
+	font-size:24px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+
+	width: 80%;
+	margin-left: 10%;
+	padding: 7px;
+	background-color: rgba(255,255,255,0.7);
+	border:solid;
+	border-width:2px;
+	border-color:rgb(142, 12, 34);
+	border-radius: 7px;
+
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	grid-template-rows: auto;
+	justify-items: center;
+	align-items: center;
+	text-align: center;
+	box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.2);
+
+	cursor: pointer;
+}
+
+.tripWrapper:hover
+{
+	background-color: rgb(142, 12, 34);
+	color: rgba(255,255,255,0.7);
+}
+
+.leftTrip
+{
+	justify-self:left;
+	align-content: center;
+}
+
+.tripName
+{
+	justify-self:center;
+}
+
+.fa-trash
+{
+	justify-self:right;
+}
+
+.contentUiElement
+{
+	cursor: pointer;
+	color: rgba(0,0,0,0.7);
+}
+
+.contentUiElement:hover
+{
+	color: white;
+}
+
+.tripType
+{
+	display: inline-block;
+}
+
+.upperTripsWrapper
+{
+	width: calc(80% + 20px);
+	margin-left: 10%;
+
+	font-size: 28px;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+	justify-items: center;
+	align-items: center;
+	text-align: center;
+}
+
+.tripsLabel
+{
+	justify-self:left;
+}
+
+.newTripButton
+{
+	cursor: pointer;
+	justify-self:right;
+	padding-left:7px;
+	padding-right: 7px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+  background-color: white;
+
+  border:solid;
+  border-width:1px;
+  border-radius: 7px;
+  border-color: rgb(142, 12, 34);
+}
+
+.newTripButton:hover
+{
+	background-color: rgb(142, 12, 34);
+	color: white;
 }
