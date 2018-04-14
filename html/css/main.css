@@ -223,13 +223,13 @@ footer
 	margin-bottom:58px;
 }
 
-.tripWrapper
+.contentWrapper
 {
 	font-size:24px;
 	margin-top: 15px;
 	margin-bottom: 15px;
 
-	width: 80%;
+	width: calc(80% - 14px);
 	margin-left: 10%;
 	padding: 7px;
 	background-color: rgba(255,255,255,0.7);
@@ -249,7 +249,7 @@ footer
 	cursor: pointer;
 }
 
-.tripWrapper:hover
+.contentWrapper:hover
 {
 	background-color: rgb(142, 12, 34);
 	color: rgba(255,255,255,0.7);
@@ -287,7 +287,7 @@ footer
 	display: inline-block;
 }
 
-.upperTripsWrapper
+.upperWrapper
 {
 	width: calc(80% + 20px);
 	margin-left: 10%;
@@ -302,12 +302,12 @@ footer
 	text-align: center;
 }
 
-.tripsLabel
+.Label
 {
 	justify-self:left;
 }
 
-.newTripButton
+.newButton
 {
 	cursor: pointer;
 	justify-self:right;
@@ -323,8 +323,126 @@ footer
   border-color: rgb(142, 12, 34);
 }
 
-.newTripButton:hover
+.newButton:hover
 {
 	background-color: rgb(142, 12, 34);
 	color: white;
+}
+
+.eventShedule
+{
+	justify-self: left;
+}
+
+.rightEvent
+{
+	justify-self:right;
+}
+
+.seeEventLocation
+{
+	cursor: pointer;
+	color:black;
+	margin-right:10px;
+}
+
+.seeEventLocation:hover
+{
+	color: rgb(142, 12, 34);
+}
+
+.deleteEventButton
+{
+	cursor: pointer;
+}
+
+.deleteEventButton:hover
+{
+	color: rgb(142, 12, 34);
+}
+
+.weatherLabel
+{
+	margin-top:10px;
+	justify-self:right;
+}
+
+.discoverLabel
+{
+	font-size: 28px;
+}
+
+input:focus
+{
+  outline: none;
+}
+
+.searchInput
+{
+	font-size: 18px;
+
+	background-image:url('../img/search.png');
+  background-repeat:no-repeat;
+	background-size: 25px 25px;
+	 background-position: right;
+	 background-position-x: calc(100% - 5px);
+
+	margin-top: 10px;
+	padding: 10px;
+
+	width:80%;
+
+  border:solid;
+  border-width: 1px;
+  border-color: rgb(142, 12, 34);
+  border-radius:5px;
+}
+
+input::-webkit-input-placeholder
+{
+    color: rgba(0,0,0,0.5);
+}
+input:-moz-placeholder
+{
+    color: rgba(0,0,0,0.5);
+}
+
+.placeType
+{
+	display: inline-block;
+}
+
+.leftDiscover
+{
+	justify-self: left;
+}
+
+.seePlaceLocation
+{
+	color:black;
+	justify-self: right;
+}
+
+.eventWrapper:hover
+{
+	cursor:inherit;
+	background-color:white;
+	color:black;
+}
+
+.tripWrapper:hover
+{
+	cursor:inherit;
+	background-color:white;
+	color:black;
+}
+
+.deleteTripButton
+{
+	color:black;
+}
+
+.deleteTripButton:hover
+{
+	color:rgb(142, 12, 34);
 }

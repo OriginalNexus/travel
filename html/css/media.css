@@ -35,7 +35,7 @@
 		justify-self:left;
 	}
 
-	.tripWrapper
+	.contentWrapper
 	{
 		border-left-width: 0;
 		border-right-width: 0;
@@ -43,5 +43,31 @@
 
 		width: calc(100% - 14px);
 		margin-left: 0;
+	}
+
+	.searchInput
+	{
+		border-left-width: 0;
+		border-right-width: 0;
+		border-radius:0px;
+
+		width: calc(100% - 20px);
+	}
+
+	.contentWrapper
+	{
+		font-size: 20px;
+	}
+
+	.upperWrapper
+	{
+		font-size: 22px;
+	}
+
+	.discoverLabel
+	{
+		padding-left:9px;
+		padding-right:9px;
+		font-size: 24px;
 	}
 }

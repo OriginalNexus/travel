@@ -23,7 +23,27 @@ $(document).ready(function()
 		 else console.log($(this)[0]);
 	});
 
-	$(".fa-trash").click(function()
+	$(".deleteTripButton").click(function()
+	{
+		console.log($(this)[0]);
+	});
+
+	$(".deleteEventButton").click(function()
+	{
+		console.log($(this)[0]);
+	});
+
+	$(".deletePlaceButton").click(function()
+	{
+		console.log($(this)[0]);
+	});
+
+	$(".seeEventLocation").click(function()
+	{
+		console.log($(this)[0]);
+	});
+
+	$(".seePlaceLocation").click(function()
 	{
 		console.log($(this)[0]);
 	});
