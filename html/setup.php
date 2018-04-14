@@ -7,4 +7,6 @@
     if ($db->connect_error)
         die('Could not connect to database (' . $db->connect_errno . ') ' . $db->connect_error);
 
+    $db->set_charset("utf8");
+
 ?>

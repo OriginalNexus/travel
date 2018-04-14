@@ -38,70 +38,10 @@
 					<div class="newTripButton">New trip</div>
 				</div>
 
-				<div class="tripWrapper">
-					<div class="leftTrip">
-						<i class="fas fa-plane"></i>
-						<div class="tripType">Leasure</div>
-					</div>
-					<div class="tripName">Fabualous trip</div>
-					<i class="fas fa-trash contentUiElement"></i>
+				<div id="tripsWrapper">
+
 				</div>
-				<div class="tripWrapper">
-					<div class="leftTrip">
-						<i class="fas fa-plane"></i>
-						<div class="tripType">Leasure</div>
-					</div>
-					<div class="tripName">Fabualous trip</div>
-					<i class="fas fa-trash contentUiElement"></i>
-				</div>
-				<div class="tripWrapper">
-					<div class="leftTrip">
-						<i class="fas fa-plane"></i>
-						<div class="tripType">Leasure</div>
-					</div>
-					<div class="tripName">Fabualous trip</div>
-					<i class="fas fa-trash contentUiElement"></i>
-				</div>
-				<div class="tripWrapper">
-					<div class="leftTrip">
-						<i class="fas fa-plane"></i>
-						<div class="tripType">Leasure</div>
-					</div>
-					<div class="tripName">Fabualous trip</div>
-					<i class="fas fa-trash contentUiElement"></i>
-				</div>
-				<div class="tripWrapper">
-					<div class="leftTrip">
-						<i class="fas fa-plane"></i>
-						<div class="tripType">Leasure</div>
-					</div>
-					<div class="tripName">Fabualous trip</div>
-					<i class="fas fa-trash contentUiElement"></i>
-				</div>
-				<div class="tripWrapper">
-					<div class="leftTrip">
-						<i class="fas fa-plane"></i>
-						<div class="tripType">Leasure</div>
-					</div>
-					<div class="tripName">Fabualous trip</div>
-					<i class="fas fa-trash contentUiElement"></i>
-				</div>
-				<div class="tripWrapper">
-					<div class="leftTrip">
-						<i class="fas fa-plane"></i>
-						<div class="tripType">Leasure</div>
-					</div>
-					<div class="tripName">Fabualous trip</div>
-					<i class="fas fa-trash contentUiElement"></i>
-				</div>
-				<div class="tripWrapper">
-					<div class="leftTrip">
-						<i class="fas fa-plane"></i>
-						<div class="tripType">Leasure</div>
-					</div>
-					<div class="tripName">Fabualous trip</div>
-					<i class="fas fa-trash contentUiElement"></i>
-				</div>
+
 			</div>
 
 			<footer class="noselect">
@@ -128,8 +68,8 @@
 			</footer>
 
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/google.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
 		<script src="https://apis.google.com/js/platform.js?onload=initGoogle" async defer></script>
 	</body>
 

@@ -29,7 +29,10 @@ $(document).ready(function()
 	});
 });
 
-function googleReady(auth2) {
+
+function googleReady() {
+	var auth2 = gapi.auth2.getAuthInstance();
+
 	$('.fa-sign-out-alt').click(function() {
 		auth2.signOut().then(function() {
 			console.log('User signed out.');
@@ -37,11 +40,47 @@ function googleReady(auth2) {
 		});
 	});
 
-	auth2.currentUser.listen(function(user) {
-		var googleUserInfo = user.getBasicProfile();
-		$('.userName').text(googleUserInfo.getName());
-		$('.userImage').attr({ src: googleUserInfo.getImageUrl() });
-	});;
+	var googleUserInfo = auth2.currentUser.get().getBasicProfile();
+	$('.userName').text(googleUserInfo.getName());
+	$('.userImage').attr({ src: googleUserInfo.getImageUrl() });
 
+	$.getJSON('trips.php', function(result) {
+		var template = $('<div>');
+		template.load('fragments/trip.html', function() {
+			$.each(result, function(index, value) {
+				var item = template.clone();
+				item.find('.tripName').text(value['name']);
+				if (value['is_leisure'])
+					item.find('.tripType').text('Leisure');
+				else
+					item.find('.tripType').text('Bussiness');
 
+				item.data("trip", value);
+
+				item.click(onTripClick);
+
+				$('#tripsWrapper').append(item);
+			});
+		});
+	});
+
+}
+
+function onTripClick() {
+	var trip = $(this).data("trip");
+	gapi.client.calendar.events.list({
+          'calendarId': 'primary',
+          'timeMin': (new Date(trip['date_start'])).toISOString(),
+		  'timeMax': (new Date(trip['date_end'])).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime'
+        }).then(function(response) {
+          var events = response.result.items;
+
+		  $.each(events, function(index, event) {
+			 console.log(event.summary);
+		  });
+        });
 }

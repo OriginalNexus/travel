@@ -1,4 +1,5 @@
-function googleReady(auth2) {
+function googleReady() {
+        var auth2 = gapi.auth2.getAuthInstance();
         auth2.attachClickHandler($('.googleSignInButton')[0], {},
             function(googleUser) {
                 profile = googleUser.getBasicProfile();
