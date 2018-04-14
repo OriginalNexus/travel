@@ -1,0 +1,58 @@
+body
+{
+  -webkit-animation: Gradient 7.5s ease infinite;
+	-moz-animation: Gradient 7.5s ease infinite;
+	animation: Gradient 7.5s ease infinite;
+  background: rgb(14,98,98);
+  background: linear-gradient(52deg, rgba(14,98,98,0.8) 0%, rgba(94,78,136,0.8) 50%, rgba(113,45,63,0.8) 100%);
+  background-attachment: fixed;
+  background-size: 150% 150%;
+}
+
+@-webkit-keyframes Gradient
+{
+	0%
+  {
+		background-position: 0% 50%;
+	}
+	50%
+  {
+		background-position: 100% 50%;
+	}
+	100%
+  {
+		background-position: 0% 50%;
+	}
+}
+
+@-moz-keyframes Gradient
+ {
+	0%
+  {
+		background-position: 0% 50%;
+	}
+	50%
+  {
+		background-position: 100% 50%;
+	}
+	100%
+  {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes Gradient
+{
+	0%
+  {
+		background-position: 0% 50%;
+	}
+	50%
+  {
+		background-position: 100% 50%;
+	}
+	100%
+  {
+		background-position: 0% 50%;
+	}
+}
