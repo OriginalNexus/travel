@@ -1,0 +1,212 @@
+body,html
+{
+	padding: 0;
+	margin: 0;
+}
+
+@font-face
+{
+	font-family: appleLightFont;
+	src: url(../apple_fonts/light.ttf);
+}
+
+@font-face
+{
+	font-family: appleRegularFont;
+	src: url(../apple_fonts/regular.ttf);
+}
+
+body
+{
+	font-family: appleLightFont;
+}
+
+*::selection
+{
+	background-color:rgb(142, 12, 34);
+	color: #ffffff;
+}
+*::-moz-selection
+{
+ background-color:rgb(142, 12, 34);
+	color: #ffffff;
+}
+*::-webkit-selection
+{
+	background-color:rgb(142, 12, 34);
+	color: #ffffff;
+}
+
+.noselect
+{
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+}
+/* -------------------------------------------------------------------------- */
+header
+{
+	position: absolute;
+	top:0;
+
+	font-size: 18px;
+
+	width: calc(100% - 30px);
+
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	background-color: rgb(142, 12, 34);
+	color: rgba(255, 255, 255, 0.7);
+
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	/* grid-template-rows: auto; */
+	/* justify-items: center; */
+	align-items: center;
+
+	text-align: center;
+}
+
+.flexedContainer
+{
+	display: flex;
+  align-items: center;
+	justify-self:center;
+
+	padding-left: 10px;
+	padding-right: 10px;
+
+	cursor: pointer;
+}
+
+.flexedContainer:hover
+{
+	color:white;
+}
+
+.leftHeader
+{
+	padding-left: 0;
+	padding-right: 0;
+  justify-self: left;
+}
+
+.rightHeader
+{
+	padding-left: 0;
+	padding-right: 0;
+  justify-self: right;
+}
+
+.middleHeader
+{
+	padding-left: 0;
+	padding-right: 0;
+	justify-self:center;
+}
+
+.userName
+{
+	display: inline-block;
+	font-size:20px;
+}
+
+.userImage
+{
+	display: inline-block;
+
+	width:38px;
+	height: 38px;
+
+	border:solid;
+	border-width: 2px;
+	border-radius:50%;
+	border-color:rgba(255,255,255,0.7);
+	margin-right: 7px;
+}
+
+.appTitle
+{
+	display: inline-block;
+	font-family: appleRegularFont;
+	font-size:24px;
+	margin-left:7px;
+	color:white;
+}
+
+.appLogo
+{
+	display: inline-block;
+
+	width:40px;
+	height:40px;
+}
+
+.uiElement
+{
+	color: white;
+	opacity: 0.7;
+	font-size:24px;
+	margin-right:7px;
+
+	cursor: pointer;
+}
+
+.fa-sign-out-alt
+{
+	margin-right: 0;
+}
+
+.uiElement:hover
+{
+	opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+footer
+{
+	position: fixed;
+	bottom: 0;
+
+	width: calc(100% - 30px);
+
+	font-size:22px;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	background-color: rgb(142, 12, 34);
+	color: rgba(255, 255, 255, 0.7);
+
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	/* grid-template-rows: auto; */
+	justify-items: center;
+	align-items: center;
+
+	text-align: center;
+}
+
+.inlineFooterText
+{
+	display: inline-block;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.activeSection
+{
+	background-color: white;
+}
+
+.activeSection > *
+{
+	color:rgb(142, 12, 34);
+	font-weight: bold;
+	opacity: 1;
+}
