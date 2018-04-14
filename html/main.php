@@ -32,15 +32,63 @@
 				</div>
 			</header>
 
-			<div class="mainWrapper">	<!-- There will be content loaded -->
-				<div class="upperTripsWrapper">
-					<div class="tripsLabel">Your trips</div>
-					<div class="newTripButton">New trip</div>
-				</div>
+			<div class="mainWrapper">	<!-- There will be content loaded based on what's clicked-->
 
+<<<<<<< HEAD
 				<div id="tripsWrapper">
 
 				</div>
+=======
+				<!-- <div class="discoverLabel">Discover where you can go...</div>
+				<input placeholder="E.g: Hotels, Restaurants, etc." class="searchInput" type="text" name="search" value="">
+
+				<div class="contentWrapper discoverWrapper">
+				 <div class="leftDiscover">
+					 <i class="fas fa-building"></i>
+					 <div class="placeType">Hotel</div>
+				 </div>
+				 <div class="placeName">Fabualous place</div>
+				 <i class="fas fa-map-marker contentUiElement seePlaceLocation"></i>
+			  </div>
+
+				<div class="upperWrapper upperEventsWrapper">
+					<div class="Label">Your events</div>
+					<div class="newButton newEventButton">
+						<i class="fas fa-calendar-alt"></i>
+						New event
+					</div>
+				</div>
+				<div class="dayWrapper">
+					<div class="upperWrapper upperDayWeather">
+						<div class="Label dayLabel">Monday</div>
+						<div class="Label weatherLabel">Cloudy</div>
+					</div>
+					<div class="contentWrapper eventWrapper">
+						<div class="eventShedule">12:00 - 15:15</div>
+						<div class="eventName">Fabualous event</div>
+						<div class="rightEvent">
+							<i class="fas fa-map-marker seeEventLocation"></i>
+							<i class="fas fa-trash deleteEventButton"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="upperWrapper upperTripsWrapper">
+					<div class="Label">Your trips</div>
+					<div class="newButton newTripButton">
+						<i class="fas fa-map"></i>
+						New trip
+					</div>
+				</div>
+			   <div class="contentWrapper tripWrapper">
+					<div class="leftTrip">
+						<i class="fas fa-plane"></i>
+						<div class="tripType">Leasure</div>
+					</div>
+					<div class="tripName">Fabualous trip</div>
+					<i class="fas fa-trash contentUiElement deleteTripButton"></i>
+				</div> -->
+>>>>>>> 26df257419cb54384d7ba9c66a5ad13fe3df64f2
 
 			</div>
 
@@ -57,7 +105,7 @@
 					<i class="fas fa-calendar-alt uiElement"></i>
 					<div class="inlineFooterText">Events</div>
 				</div>
-				<div class="recommendationsWrapper flexedContainer">
+				<div class="discoverWrapper flexedContainer">
 					<i class="fas fa-star uiElement"></i>
 					<div class="inlineFooterText">Discover</div>
 				</div>
