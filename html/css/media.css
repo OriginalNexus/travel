@@ -1,4 +1,37 @@
-/* @media screen and (max-width: 1023px)
+@media screen and (max-width: 899px)
 {
+	.inlineFooterText
+	{
+		display: none;
+	}
 
-} */
+	.uiElement
+	{
+		margin-right: 0;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.fa-cog
+	{
+		margin-right:7px;
+	}
+}
+
+@media screen and (max-width: 639px)
+{
+	header
+	{
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.leftHeader
+	{
+		display: none;
+	}
+
+	.middleHeader
+	{
+		justify-self:left;
+	}
+}
