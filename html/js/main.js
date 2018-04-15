@@ -1,6 +1,16 @@
 $(document).ready(function()
 {
 	$(".homeWrapper").addClass("activeSection");
+	$('.eventFrom').datetime();
+	$('.eventTo').datetime();
+
+	// $("#addTripWrapper").css("display", "grid");		// add those when you need
+	// $("#addEventWrapper").css("display", "grid");
+
+	$(".fa-times").click(function(event)
+	{
+		$(".formWrapper").css("display", "none");
+	});
 
 	$(".flexedContainer").click(function(event)
 	{
