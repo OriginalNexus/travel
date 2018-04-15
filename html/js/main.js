@@ -180,13 +180,16 @@ function loadEvents() {
 	});
 }
 
-function createMarker(map, place, add) {
+function createMarker(map, place, add)
+{
 	var contentString;
-	if (add) {
+	if (add)
+	{
 		contentString = '<h4>' + place.name + '</h4>'
 						+ (place.website ? '<a href="' + place.website + '">' + place.website + '</a>' : '');
 	}
-	else {
+	else
+	{
 		contentString = '<h4>' + place.name + '</h4>'
 						+ (place.website ? '<a href="' + place.website + '">' + place.website + '</a>' : '');
 	}
@@ -194,7 +197,7 @@ function createMarker(map, place, add) {
 	var infowindow = new google.maps.InfoWindow({
 		content: contentString
 	});
-	
+
 	var marker = new google.maps.Marker({
 		position: place.geometry.location,
 		map: map,
@@ -335,10 +338,10 @@ function loadMap(extra) {
 							markInfo.info.open(map, markInfo.marker);
 							map.fitBounds(latlngbounds);
 						}
-					}		
+					}
 				});
 			});
-				
+
 		});
 	});
 }
@@ -451,6 +454,7 @@ function loadDiscover() {
 				var bounds = new google.maps.LatLngBounds();
 				places.forEach(function(place) {
 					if (!place.geometry) {
+						
 						console.log("Returned place contains no geometry");
 						return;
 					}
@@ -510,11 +514,11 @@ function googleReady() {
 	loadHome();
 
 	$('#addTripForm').submit(function() {
-		$.post('add_trip.php', { 
-			trip_name: $('#tripName').val(), 
-			from: $('#tripFrom').val(), 
-			to: $('#tripTo').val(), 
-			is_leisure: ($('#leisure').prop('checked') ? 1 : 0) }, 
+		$.post('add_trip.php', {
+			trip_name: $('#tripName').val(),
+			from: $('#tripFrom').val(),
+			to: $('#tripTo').val(),
+			is_leisure: ($('#leisure').prop('checked') ? 1 : 0) },
 			function() {
 				$(".formWrapper").css("display", "none");
 				loadHome();
