@@ -565,6 +565,8 @@ label
 	grid-template-rows: 100vh;
 	align-items: center;
 
+	z-index: 101;
+
 	background-color: rgba(0,0,0,0.8);
 }
 
@@ -702,6 +704,8 @@ option
 	top:56px;
 	left:0;
 
+	z-index: 99;
+
 	width: 100%;
 	height:calc(100% - 100px);
 }
@@ -722,28 +726,22 @@ option
 
 .roundAddEventButton
 {
-	position: fixed;
-	top:20%;
-	left:20%;
-
 	cursor: pointer;
 	text-align: center;
 
-	padding-top:10px;
+	width:16px;
+	margin:auto;
+	margin-top:7px;
+
+	padding-top:7px;
 	padding-bottom: 10px;
 	padding-left: 13px;
 	padding-right: 13px;
 
-	font-size:21px;
+	font-size:18px;
 	background-color: rgb(142, 12, 34);
 	color:white;
 	border-radius:50%;
-	box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.4);
 
 	z-index: 100;
-}
-
-.roundAddEventButton .fa-calendar-alt
-{
-
 }

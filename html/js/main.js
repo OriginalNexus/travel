@@ -21,15 +21,18 @@ $(document).ready(function()
 			 !$(event.target).hasClass("appLogo") && !$(event.target).hasClass("appTitle") &&
 		   !$(event.target).hasClass("leftHeader") && !$(event.target).hasClass("middleHeader"))
 		{
-			$(".flexedContainer").each(function()
-			{
-				$(this).removeClass("activeSection");
-			});
-
-			$(this).addClass("activeSection");
+			updateBottomSelection($(this));
 		}
 	});
 });
+
+function updateBottomSelection(div) {
+	$(".flexedContainer").each(function() {
+		$(this).removeClass("activeSection");
+	});
+
+	div.addClass("activeSection");
+}
 
 function loadHome() {
 	$('.mainWrapper').load('fragments/trips.html', function() {
@@ -47,6 +50,7 @@ function loadHome() {
 					item.click(function() {
 						currentTrip = trip;
 						loadMap();
+						updateBottomSelection($('.mapWrapper'));
 					});
 
 					item.find(".deleteTripButton").click(function() {
@@ -114,8 +118,6 @@ function loadEvents() {
 							currentDate = eventDate;
 							dayDiv = dayTemplate.clone();
 
-							tasks.push([dayDiv[0], event.location]);
-
 							var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 							dayDiv.find('.dayLabel').text(days[currentDate.getDay()]);
 
@@ -139,32 +141,34 @@ function loadEvents() {
 							});
 							return false;
 						});
+						tasks.push([dayDiv[0], event.location, eventDiv[0]]);
 					});
 
 					map = new google.maps.Map($("<div>")[0]);
 					var service = new google.maps.places.PlacesService(map);
 
-					var callback = function(places, status, div) {
+					var callback = function(places, status, daydiv, div) {
 						if (status == google.maps.places.PlacesServiceStatus.OK) {
+							var place = places[0];
 							div.find('.seeEventLocation').click(function() {
-								loadMap(places[0]);
+								loadMap(place);
+								updateBottomSelection($('.mapWrapper'));
 								return false;
 							});
-							$.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + places[0].geometry.location.lat() + '&lon=' +  places[0].geometry.location.lng() + '&appid=1efbdf56565f4baba6b8be5d796bc9dc', function(data) {
-								div.find('.weatherLabel').text(Math.round(data['main']['temp'] - 273.15) + '° C, ' + data['weather'][0]['main']);
+							$.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + place.geometry.location.lat() + '&lon=' +  place.geometry.location.lng() + '&appid=1efbdf56565f4baba6b8be5d796bc9dc', function(data) {
+								daydiv.find('.weatherLabel').text(Math.round(data['main']['temp'] - 273.15) + '° C, ' + data['weather'][0]['main']);
 							});
 
 							if (task = tasks.shift()) {
 								service.textSearch({ query: task[1]}, function(places, status) {
-									callback(places, status, $(task[0]));
+									callback(places, status, $(task[0]), $(task[2]));
 								});
 							}
 						}
 					}
-
 					if (task = tasks.shift()) {
 						service.textSearch({ query: task[1]}, function(places, status) {
-							callback(places, status, $(task[0]));
+							callback(places, status, $(task[0]), $(task[2]));
 						});
 					}
 
@@ -185,12 +189,13 @@ function createMarker(map, place, add)
 	var contentString;
 	if (add)
 	{
-		contentString = '<h4>' + place.name + '</h4>'
-						+ (place.website ? '<a href="' + place.website + '">' + place.website + '</a>' : '');
+		contentString = '<div style="font-size:16px">' + place.name + '</div>'
+						+ (place.website ? '<a href="' + place.website + '">' + place.website + '</a>' : '') +
+						'<div class="roundAddEventButton" onclick="addEventFromMap(\'' + place.formatted_address + '\');"><i class="fas fa-calendar-alt"></i></div>';
 	}
 	else
 	{
-		contentString = '<h4>' + place.name + '</h4>'
+		contentString = '<div style="font-size:16px">' + place.name + '</div>'
 						+ (place.website ? '<a href="' + place.website + '">' + place.website + '</a>' : '');
 	}
 
@@ -205,9 +210,18 @@ function createMarker(map, place, add)
 	});
 	marker.addListener('click', function() {
 		infowindow.open(map, marker);
+		
+		
 	});
 
+
+
 	return { marker: marker, info: infowindow };
+}
+
+function addEventFromMap(address) {
+	$("#eventLocation").val(address);
+	$("#addEventWrapper").css("display", "grid");
 }
 
 function loadMap(extra) {
@@ -315,32 +329,38 @@ function loadMap(extra) {
 		}).then(function(response) {
 			var events = response.result.items;
 			var latlngbounds = new google.maps.LatLngBounds();
-			$.each(events, function(index, event) {
-				service.textSearch({ query: event.location }, function(places, status) {
-					if (status == google.maps.places.PlacesServiceStatus.OK) {
-						var place = places[0];
+			var i = 0;
 
-						var markInfo = createMarker(map, place, false);
+			var callback = function(places, status) {
+				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					var place = places[0];
 
-						latlngbounds.extend(place.geometry.location);
+					var markInfo = createMarker(map, place, false);
 
-						if (extra && extra.place_id == place.place_id) {
-							markInfo.info.open(map, markInfo.marker);
-							extra = null;
-						}
-						map.fitBounds(latlngbounds);
+					latlngbounds.extend(place.geometry.location);
+
+					if (extra && extra.place_id == place.place_id) {
+						markInfo.info.open(map, markInfo.marker);
+						extra = null;
 					}
+				}
 
-					if (index + 1 == events.length) {
-						if (extra) {
-							var markInfo = createMarker(map, extra, true);
-							latlngbounds.extend(extra.geometry.location);
-							markInfo.info.open(map, markInfo.marker);
-							map.fitBounds(latlngbounds);
-						}
+				if (i + 1 == events.length) {
+					if (extra) {
+						var markInfo = createMarker(map, extra, true);
+						latlngbounds.extend(extra.geometry.location);
+						markInfo.info.open(map, markInfo.marker);
 					}
-				});
-			});
+					map.fitBounds(latlngbounds);
+				}
+				else {
+					i++;
+					service.textSearch({ query: events[i].location }, callback);
+				}
+
+			};
+			
+			service.textSearch({ query: events[i].location }, callback);
 
 		});
 	});
@@ -370,62 +390,64 @@ function loadCurrency() {
 				var countries = [];
 				map = new google.maps.Map($("<div>")[0]);
 				var service = new google.maps.places.PlacesService(map);
+				var i = 0;
+				var callback = function(places, status) {
+					if (status == google.maps.places.PlacesServiceStatus.OK) {
+						var place = places[0];
 
-				$.each(events, function(index, event) {
-					service.textSearch({ query: event.location }, function(places, status) {
-						if (status == google.maps.places.PlacesServiceStatus.OK) {
-							var place = places[0];
+						addr = place.formatted_address;
 
-							addr = place.formatted_address;
-
+						if (place.formatted_address) {
 							var country = place.formatted_address.split(', ').pop();
 							if($.inArray(country, countries) === -1)
 								countries.push(country);
-
 						}
 
-						if (index + 1 == events.length) {
-							$.each(countries, function(index, country) {
-								var curr = currTemplate.clone();
+					}
+
+					if (i + 1 == events.length) {
+						$.each(countries, function(index, country) {
+							var curr = currTemplate.clone();
 
 
-								$.getJSON("https://restcountries.eu/rest/v2/name/" + country, function(data) {
-									var countryCode = data[0].numericCode;
-									var countryCurrency = data[0].currencies[0]["code"];
+							$.getJSON("https://restcountries.eu/rest/v2/name/" + country, function(data) {
+								var countryCode = data[0].numericCode;
+								var countryCurrency = data[0].currencies[0]["code"];
 
-									$("#convertLeft").append($("<option>").val(countryCurrency).html(countryCurrency));
-									$("#convertRight").append($("<option>").val(countryCurrency).html(countryCurrency));
-
-									
+								$("#convertLeft").append($("<option>").val(countryCurrency).html(countryCurrency));
+								$("#convertRight").append($("<option>").val(countryCurrency).html(countryCurrency));
 
 
-									// $.getJSON("get_sos.php", {code: countryCode}, function(data) {
-									// 	console.log(data);
-									// 	console.log("lol");
-									// 	var emer;
-									// 	if (data['data']['member_112'])
-									// 		emer = "112";
-									// 	else
-									// 		emer = data['data']['dispatch']['all'][0];
+								$.getJSON("get_sos.php?code=" + countryCode, function(data) {
+									var emer;
+									if (data['data']['member_112'])
+										emer = "112";
+									else
+										emer = data['data']['dispatch']['all'][0];
 
-									// 	curr.find('.currency').text(countryCurrency);
-									// 	curr.find('.sosNumber').text(emer);
+									curr.find('.currency').text(countryCurrency);
+									curr.find('.countryName').text(country);
+									curr.find('.sosNumber').text(emer);
 
-									// 	$('.mainWrapper').append(curr);
-									// });
+									$('.mainWrapper').append(curr);
 								});
 							});
+						});
 
-							$('.amount').keypress(function(e) {
-								if(e.which == 13) {
-									$.getJSON("https://free.currencyconverterapi.com/api/v5/convert?q=" + $('#convertLeft').val() + "_" + $('#convertRight').val() + "&compact=y", function(data) {
-										$('.conversionResult').text(data[$('#convertLeft').val() + "_" + $('#convertRight').val()].val * $('.amount').val());
-									});
-   								 }
-							});
-						}		
-					});
-				});
+						$('.amount').keypress(function(e) {
+							if(e.which == 13) {
+								$.getJSON("https://free.currencyconverterapi.com/api/v5/convert?q=" + $('#convertLeft').val() + "_" + $('#convertRight').val() + "&compact=y", function(data) {
+									$('.conversionResult').text(data[$('#convertLeft').val() + "_" + $('#convertRight').val()].val * $('.amount').val());
+								});
+							}
+						});
+					}
+					else {
+						i++;
+						service.textSearch({ query: events[i].location }, callback);
+					}
+				};
+				service.textSearch({ query: events[i].location }, callback);
 			});
 		});
 	});
@@ -467,6 +489,7 @@ function loadDiscover() {
 
 					placeDiv.find('.seePlaceLocation').click(function() {
 						loadMap(place);
+						updateBottomSelection($('.mapWrapper'));
 					});
 
 					$('#discoverResults').append(placeDiv);
@@ -482,7 +505,6 @@ function googleReady() {
 
 	$('.fa-sign-out-alt').click(function() {
 		auth2.signOut().then(function() {
-			console.log('User signed out.');
 			document.location = 'logout.php';
 		});
 	});
@@ -545,23 +567,4 @@ function googleReady() {
 		return false;
 	});
 
-}
-
-function GetStuffFromHere(country)
-{
-	$.getJSON("https://restcountries.eu/rest/v2/name/" + country, function(data) {
-		var countryCode = data[0].numericCode;
-		var countryCurrency = data[0].currencies[0]["code"];
-
-		$.getJSON("https://free.currencyconverterapi.com/api/v5/convert?q=" + countryCurrency + "_" + "RON" + "&compact=y", function(data) {
-			console.log(data[countryCurrency + "_" + "RON"].val);
-		});
-
-		$.getJSON("http://emergencynumberapi.com/api/country/" + countryCode, function(data)
-		{
-			console.log(data);
-			// Check if member_112 is true, then return true;
-			// Elese, return dispatch - all
-		});
-	});
 }
