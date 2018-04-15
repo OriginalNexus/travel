@@ -1,9 +1,9 @@
 <?php
 
-require_once('setup.php');
+	require_once('setup.php');
 
-unset($_SESSION['user']);
+	unset($_SESSION['user']);
 
-header("location: /");
+	header("location: /");
 
 ?>

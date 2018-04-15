@@ -446,3 +446,8 @@ input:-moz-placeholder
 {
 	color:rgb(142, 12, 34);
 }
+
+#discoverResults
+{
+	padding-bottom: 58px;
+}

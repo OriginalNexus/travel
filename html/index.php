@@ -3,8 +3,8 @@
 require_once('setup.php');
 
 if (isset($_SESSION['user']))
-    include('main.php');
+    include('main.html');
 else
-    include('landing.php');
+    include('landing.html');
 
 ?>
