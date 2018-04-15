@@ -36,11 +36,18 @@
 			</div>
 
 			<div id="addTripWrapper" class="formWrapper">
-				<form class="form">
+				<form id="addTripForm" class="form" method="post">
 					<i class="fas fa-times"></i>
 
 					<label for="tripName">Trip name</label>
-					<input type="text" class="tripName" name="tripName" placeholder="Your trip name...">
+					<input id="tripName" type="text" class="tripName" name="tripName" placeholder="Your trip name..." required>
+
+
+					<label for="tripFrom">From</label>
+					<input id="tripFrom" type="text" class="tripFrom" name="tripFrom" placeholder="From..." required>
+
+					<label for="tripTo">To</label>
+					<input id="tripTo" type="text" class="tripTo" name="tripTo" placeholder="To..." required>
 
 					<div class="radioWrapper">
 						<p>
@@ -58,20 +65,20 @@
 			</div>
 
 			<div id="addEventWrapper" class="formWrapper">
-				<form class="form">
+				<form id="addEventForm" class="form" method="post">
 					<i class="fas fa-times"></i>
 
 					<label for="eventName">Event name</label>
-					<input type="text" class="eventName" name="eventName" placeholder="Your event name...">
+					<input id="eventName" type="text" class="eventName" name="eventName" placeholder="Your event name..." required>
 
 					<label for="eventFrom">From</label>
-					<input type="text" class="eventFrom" name="eventFrom" placeholder="From...">
+					<input id="eventFrom" type="text" class="eventFrom" name="eventFrom" placeholder="From..." required>
 
 					<label for="eventTo">To</label>
-					<input type="text" class="eventTo" name="eventTo" placeholder="To...">
+					<input id="eventTo" type="text" class="eventTo" name="eventTo" placeholder="To..." required>
 
 					<label for="eventLocation">Event location</label>
-					<input type="text" class="eventLocation" name="eventLocation" placeholder="Your location...">
+					<input id="eventLocation" type="text" class="eventLocation" name="eventLocation" placeholder="Your location..." required>
 
 					<input type="submit" value="Add event">
 				</form>

@@ -216,7 +216,7 @@ footer
 	text-align: center;
 }
 
-.tripWrapper:last-child
+#tripsWrapper
 {
 	margin-bottom:58px;
 }

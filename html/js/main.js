@@ -3,11 +3,11 @@ var currentTrip;
 $(document).ready(function()
 {
 	$(".homeWrapper").addClass("activeSection");
-	$('.eventFrom').datetime();
-	$('.eventTo').datetime();
-
-	// $("#addTripWrapper").css("display", "grid");		// add those when you need
-	// $("#addEventWrapper").css("display", "grid");
+	var options = { };
+	$('.eventFrom').datetime(options);
+	$('.eventTo').datetime(options);
+	$('.tripFrom').datetime(options);
+	$('.tripTo').datetime(options);
 
 	$(".fa-times").click(function(event)
 	{
@@ -28,21 +28,6 @@ $(document).ready(function()
 			$(this).addClass("activeSection");
 		}
 	});
-
-
-
-
-	$(".deletePlaceButton").click(function()
-	{
-		console.log($(this)[0]);
-	});
-
-	$(".seeEventLocation").click(function()
-	{
-		console.log($(this)[0]);
-	});
-
-
 
 });
 
@@ -76,6 +61,9 @@ function loadHome() {
 				
 			});
 		});
+		$(this).find('.newTripButton').click(function() {
+			$("#addTripWrapper").css("display", "grid");
+		});
 	});
 }
 
@@ -93,9 +81,14 @@ function loadEvents() {
 	if (!currentTrip) return;
 	$('.mainWrapper').load('fragments/events.html', function() {
 
+		var start = new Date();
+		var eventStart = new Date(currentTrip['date_start']);
+		if (start.getTime() < eventStart.getTime())
+			start = eventStart;
+
 		gapi.client.calendar.events.list({
 			'calendarId': 'primary',
-			'timeMin': (new Date()).toISOString(),
+			'timeMin': start.toISOString(),
 			'timeMax': (new Date(currentTrip['date_end'])).toISOString(),
 			'showDeleted': false,
 			'singleEvents': true,
@@ -111,29 +104,18 @@ function loadEvents() {
 				eventTemplate.load('fragments/event.html', function() {
 
 					var dayDiv;
+					var tasks = [];
 
 					$.each(events, function(index, event) {
 						var eventDate = new Date(event.start.dateTime);
 						var eventEndDate = new Date(event.end.dateTime);
+
+
 						if (!currentDate || !sameDay(currentDate, eventDate)) {
 							currentDate = eventDate;
 							dayDiv = dayTemplate.clone();
 
-							map = new google.maps.Map($("<div>")[0]);
-							var service = new google.maps.places.PlacesService(map);
-							var city;
-  							service.textSearch({ query: event.location}, function(places, status) {
-  								if (status == google.maps.places.PlacesServiceStatus.OK) {
-  									dayDiv.find('.seeEventLocation').click(function() {
-  										console.log(places[0].place_id);
-  										return false;
-  									});
-  									$.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + places[0].geometry.location.lat() + '&lon=' +  places[0].geometry.location.lng() + '&appid=1efbdf56565f4baba6b8be5d796bc9dc', function(data) {
-  										dayDiv.find('.weatherLabel').text(Math.round(data['main']['temp'] - 273.15) + '° C, ' + data['weather'][0]['main']);
-  									});
-  								}
-
-  							});
+							tasks.push([dayDiv[0], event.location]);
 
 							var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 							dayDiv.find('.dayLabel').text(days[currentDate.getDay()]);
@@ -160,26 +142,48 @@ function loadEvents() {
 						});
 					});
 
+					map = new google.maps.Map($("<div>")[0]);
+					var service = new google.maps.places.PlacesService(map);
+
+					var callback = function(places, status, div) {
+						if (status == google.maps.places.PlacesServiceStatus.OK) {
+							div.find('.seeEventLocation').click(function() {
+								console.log(places[0].place_id);
+								return false;
+							});
+							$.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + places[0].geometry.location.lat() + '&lon=' +  places[0].geometry.location.lng() + '&appid=1efbdf56565f4baba6b8be5d796bc9dc', function(data) {
+								div.find('.weatherLabel').text(Math.round(data['main']['temp'] - 273.15) + '° C, ' + data['weather'][0]['main']);
+							});
+
+							if (task = tasks.shift()) {
+								service.textSearch({ query: task[1]}, function(places, status) {
+									callback(places, status, $(task[0]));
+								});
+							}
+						}
+					}
+
+					if (task = tasks.shift()) {
+						service.textSearch({ query: task[1]}, function(places, status) {
+							callback(places, status, $(task[0]));
+						});
+					}
+
 				});
 				
 			});
 
+		});
+
+		$(this).find('.newEventButton').click(function() {
+			$("#addEventWrapper").css("display", "grid");
 		});
 	});
 }
 
 function loadDiscover() {
 	$('.mainWrapper').load('fragments/discover.html', function() {
-		var defaultBounds = new google.maps.LatLngBounds(
-			new google.maps.LatLng(-33.8902, 151.1759),
-			new google.maps.LatLng(-33.8474, 151.2631));
-
 		var input = document.getElementById('discoverSearch');
-		var options = {
-			componentRestrictions: {country: 'ro'},
-			types: ['establishment']
-		};
-
 		var searchBox = new google.maps.places.SearchBox(input, {
   			componentRestrictions: {country: 'ro'}
 		});
@@ -248,5 +252,37 @@ function googleReady() {
 	});
 
 	loadHome();
+
+	$('#addTripForm').submit(function() {
+		$.post('add_trip.php', { 
+			trip_name: $('#tripName').val(), 
+			from: $('#tripFrom').val(), 
+			to: $('#tripTo').val(), 
+			is_leisure: ($('#leisure').prop('checked') ? 1 : 0) }, 
+			function() {
+				$(".formWrapper").css("display", "none");
+				loadHome();
+			});
+		return false;
+	});
+
+	$('#addEventForm').submit(function() {
+		gapi.client.calendar.events.insert({
+			'calendarId': 'primary'
+		}, {
+			start: {
+				dateTime: (new Date($('#eventFrom').val())).toISOString()
+			},
+			end: {
+				dateTime: (new Date($('#eventTo').val())).toISOString()
+			},
+			summary: $('#eventName').val(),
+			location: $('#eventLocation').val()
+		}).then(function(response) {
+			$(".formWrapper").css("display", "none");
+			loadEvents();
+		});
+		return false;
+	});
 
 }
