@@ -29,7 +29,6 @@ $(document).ready(function()
 			$(this).addClass("activeSection");
 		}
 	});
-
 });
 
 function loadHome() {
@@ -59,7 +58,7 @@ function loadHome() {
 
 					$('#tripsWrapper').append(item);
 				});
-				
+
 			});
 		});
 		$(this).find('.newTripButton').click(function() {
@@ -124,8 +123,8 @@ function loadEvents() {
 						}
 						var eventDiv = eventTemplate.clone();
 
-						eventDiv.find('.eventShedule').text(getHourMinuteFormat(eventDate) 
-							+ ' - ' 
+						eventDiv.find('.eventShedule').text(getHourMinuteFormat(eventDate)
+							+ ' - '
 							+ getHourMinuteFormat(eventEndDate));
 						eventDiv.find('.eventName').text(event.summary);
 
@@ -170,7 +169,7 @@ function loadEvents() {
 					}
 
 				});
-				
+
 			});
 
 		});
@@ -388,7 +387,7 @@ function loadDiscover() {
 				});
 			});
 		});
-		
+
 	});
 }
 
@@ -413,11 +412,17 @@ function googleReady() {
 	$('.eventsWrapper').click(function() {
 		loadEvents();
 	});
-	$('.discoverWrapper').click(function() {
+	$('.recommendationsWrapper').click(function() {
 		loadDiscover();
 	});
+
 	$('.mapWrapper').click(function() {
 		loadMap();
+	});
+
+	$('.currWrapper').click(function()
+	{
+
 	});
 
 	loadHome();
@@ -454,4 +459,25 @@ function googleReady() {
 		return false;
 	});
 
+}
+
+function GetStuffFromHere()
+{
+	$.getJSON("https://restcountries.eu/rest/v2/name/" + "USA",function(data)
+	{
+		var countryCode = data[0].numericCode;
+		var countryCurrency = data[0].currencies[0]["code"];
+
+		$.getJSON("https://free.currencyconverterapi.com/api/v5/convert?q=" + countryCurrency + "_" + "RON" + "&compact=y", function(data)
+		{
+			console.log(data[countryCurrency + "_" + "RON"].val);
+		});
+
+		$.getJSON("http://emergencynumberapi.com/api/country/" + countryCode, function(data)
+		{
+			console.log(data);
+			// Check if member_112 is true, then return true;
+			// Elese, return dispatch - all
+		});
+	});
 }

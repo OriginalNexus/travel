@@ -31,7 +31,36 @@
 			</header>
 
 			<div class="mainWrapper">
+				<div class="Label currencyLabel">Currency</div>
 
+				<div class="conversionWrapper">
+					<input type="number" class="amount" name="amount" placeholder="$">
+					<select class="dropdown" name="currencyFromOption">
+				    <option value="USD">USD</option>
+				    <option value="EUR">EUR</option>
+				    <option value="RON">RON</option>
+				  </select>
+					<i class="fas fa-exchange-alt"></i>
+					<select class="dropdown" name="currencyToOption">
+				    <option value="USD">USD</option>
+				    <option value="EUR">EUR</option>
+				    <option value="RON">RON</option>
+				  </select>
+					<div style="display:inline-block; font-size:28px;">=</div>
+					<div class="conversionResult">awd</div>
+				</div>
+
+				<div class="contentWrapper currencyWrapper">
+					<div class="leftCurrency">
+						<i class="fas fa-balance-scale"></i>
+						<div class="currency">EUR</div>
+					</div>
+					<div class="countryName">Fabualous country</div>
+					<div class="rightCurrency">
+						<i class="fas fa-hospital"></i>
+						<div class="sosNumber">911</div>
+					</div>
+				</div>
 
 			</div>
 
@@ -82,7 +111,7 @@
 
 					<input type="submit" value="Add event">
 				</form>
-			</div> 
+			</div>
 
 
 			<footer class="noselect">
@@ -98,11 +127,11 @@
 					<i class="fas fa-calendar-alt uiElement"></i>
 					<div class="inlineFooterText">Events</div>
 				</div>
-				<div class="discoverWrapper flexedContainer">
+				<div class="recommendationsWrapper flexedContainer">
 					<i class="fas fa-star uiElement"></i>
 					<div class="inlineFooterText">Discover</div>
 				</div>
-				<div class="currencyWrapper flexedContainer">
+				<div class="currWrapper flexedContainer">
 					<i class="fas fa-balance-scale uiElement"></i>
 					<div class="inlineFooterText">Currency</div>
 				</div>
