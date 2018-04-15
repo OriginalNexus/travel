@@ -607,11 +607,6 @@ label
 	text-align: center;
 }
 
-#map
-{
-	width: 500px;
-	height: 500px;
-}
 .placeIcon
 {
 	width:26px;
@@ -699,4 +694,56 @@ option
 {
 	font-size: 24px;
 	display: inline-block;
+}
+
+#map
+{
+	position: absolute;
+	top:56px;
+	left:0;
+
+	width: 100%;
+	height:calc(100% - 100px);
+}
+
+.poi-info-window a:link
+{
+	color:rgb(142, 12, 34) !important;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.poi-info-window .view-link, .poi-info-window a:visited
+{
+	color:rgb(142, 12, 34) !important;
+	font-weight: bold;
+	font-size:12px;
+}
+
+.roundAddEventButton
+{
+	position: fixed;
+	top:20%;
+	left:20%;
+
+	cursor: pointer;
+	text-align: center;
+
+	padding-top:10px;
+	padding-bottom: 10px;
+	padding-left: 13px;
+	padding-right: 13px;
+
+	font-size:21px;
+	background-color: rgb(142, 12, 34);
+	color:white;
+	border-radius:50%;
+	box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.4);
+
+	z-index: 100;
+}
+
+.roundAddEventButton .fa-calendar-alt
+{
+
 }

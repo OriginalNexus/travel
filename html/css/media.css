@@ -16,6 +16,12 @@
 	{
 		margin-right:7px;
 	}
+
+	#map
+	{
+		top:58px;
+		height:calc(100% - 102px);
+	}
 }
 
 @media screen and (max-width: 639px)
