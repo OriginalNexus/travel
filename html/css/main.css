@@ -359,6 +359,18 @@ footer
 	color: rgb(142, 12, 34);
 }
 
+.seePlaceLocation
+{
+	cursor: pointer;
+	color:black;
+	margin-right:10px;
+}
+
+.seePlaceLocation:hover
+{
+	color: rgb(142, 12, 34);
+}
+
 .weatherLabel
 {
 	margin-top:10px;
@@ -371,6 +383,11 @@ footer
 }
 
 input:focus
+{
+  outline: none;
+}
+
+select:focus
 {
   outline: none;
 }
@@ -413,6 +430,7 @@ input:-moz-placeholder
 .leftDiscover
 {
 	justify-self: left;
+	padding-left: 0px;
 }
 
 .seePlaceLocation
@@ -428,23 +446,57 @@ input:-moz-placeholder
 	color:black;
 }
 
-.tripWrapper:hover
+.discoverWrapper
 {
-	cursor:inherit;
 	background-color:white;
 	color:black;
 }
 
-.deleteTripButton
+.discoverWrapper:hover
 {
+	cursor:inherit;
+	background-color:white;
+	color:black;
+	cursor:default;
+}
+
+.currencyWrapper
+{
+	background-color:white;
+	color:black;
+
+	cursor: grab;
+}
+
+.leftCurrency > *
+{
+	cursor: default;
+}
+
+.rightCurrency > *
+{
+	cursor: default;
+}
+
+.currencyWrapper:hover
+{
+	cursor:inherit;
+	background-color:white;
+	color:black;
+	cursor:default;
+}
+
+.leftDiscover:hover
+{
+	cursor: default;
 	color:black;
 }
 
-.deleteTripButton:hover
+.placeIcon:hover
 {
-	color:rgb(142, 12, 34);
+	cursor: default;
+	color:black;
 }
-
 
 #discoverResults
 {
@@ -553,4 +605,93 @@ label
 	justify-items: center;
 	align-items: center;
 	text-align: center;
+}
+
+.placeIcon
+{
+	width:26px;
+	margin-right:7px;
+	height:auto;
+}
+
+.currencyLabel
+{
+	font-size: 28px;
+	margin-bottom:15px;
+}
+
+.leftCurrency
+{
+	display: flex;
+  align-items: center;
+	justify-self:center;
+
+	padding-left: 10px;
+	padding-right: 10px;
+
+	cursor: pointer;
+	justify-self:left;
+}
+
+.rightCurrency
+{
+	display: flex;
+  align-items: center;
+	justify-self:center;
+
+	padding-left: 10px;
+	padding-right: 10px;
+
+	cursor: pointer;
+	justify-self:right;
+}
+
+.currency
+{
+	margin-left:7px;
+}
+
+.sosNumber
+{
+	margin-left:7px;
+}
+
+.amount
+{
+	width:54px;
+	margin-left: 0;
+	margin-right: 2px;
+}
+
+.dropdown
+{
+	color: rgb(142, 12, 34);
+	width: 76px;
+	padding: 10px;
+	font-size: 15px;
+
+	border:solid;
+	border-width: 1px;
+	border-color: rgb(142, 12, 34);
+	border-radius:5px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+	-webkit-appearance: none;
+  margin: 0;
+}
+
+option
+{
+	background-color: rgb(142, 12, 34);
+	color:white;
+	font-size:16px;
+}
+
+.conversionResult
+{
+	font-size: 24px;
+	display: inline-block;
 }

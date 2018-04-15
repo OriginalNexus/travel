@@ -51,7 +51,10 @@
 		border-right-width: 0;
 		border-radius:0px;
 
-		width: calc(100% - 20px);
+		margin-left: 0;
+		margin-right: 0;
+
+		width: 100%;
 	}
 
 	.contentWrapper
