@@ -325,6 +325,7 @@ function loadMap(extra) {
 							markInfo.info.open(map, markInfo.marker);
 							extra = null;
 						}
+						map.fitBounds(latlngbounds);
 					}
 
 					if (index + 1 == events.length) {
@@ -332,8 +333,6 @@ function loadMap(extra) {
 							var markInfo = createMarker(map, extra, true);
 							latlngbounds.extend(extra.geometry.location);
 							markInfo.info.open(map, markInfo.marker);
-						}
-						else {
 							map.fitBounds(latlngbounds);
 						}
 					}		
@@ -342,8 +341,91 @@ function loadMap(extra) {
 				
 		});
 	});
+}
+
+function loadCurrency() {
+	$('.mainWrapper').load('fragments/currency.html', function() {
+		if (!currentTrip) return;
+		
+		var start = new Date();
+		var eventStart = new Date(currentTrip['date_start']);
+		if (start.getTime() < eventStart.getTime())
+			start = eventStart;
+
+		gapi.client.calendar.events.list({
+			'calendarId': 'primary',
+			'timeMin': start.toISOString(),
+			'timeMax': (new Date(currentTrip['date_end'])).toISOString(),
+			'showDeleted': false,
+			'singleEvents': true,
+			'orderBy': 'startTime'
+		}).then(function(response) {
+			var events = response.result.items;
+
+			var currTemplate = $('<div>');
+			currTemplate.load('fragments/currency_emergency.html', function() {
+				var countries = [];
+				map = new google.maps.Map($("<div>")[0]);
+				var service = new google.maps.places.PlacesService(map);
+
+				$.each(events, function(index, event) {
+					service.textSearch({ query: event.location }, function(places, status) {
+						if (status == google.maps.places.PlacesServiceStatus.OK) {
+							var place = places[0];
+
+							addr = place.formatted_address;
+
+							var country = place.formatted_address.split(', ').pop();
+							if($.inArray(country, countries) === -1)
+								countries.push(country);
+
+						}
+
+						if (index + 1 == events.length) {
+							$.each(countries, function(index, country) {
+								var curr = currTemplate.clone();
 
 
+								$.getJSON("https://restcountries.eu/rest/v2/name/" + country, function(data) {
+									var countryCode = data[0].numericCode;
+									var countryCurrency = data[0].currencies[0]["code"];
+
+									$("#convertLeft").append($("<option>").val(countryCurrency).html(countryCurrency));
+									$("#convertRight").append($("<option>").val(countryCurrency).html(countryCurrency));
+
+									
+
+
+									// $.getJSON("get_sos.php", {code: countryCode}, function(data) {
+									// 	console.log(data);
+									// 	console.log("lol");
+									// 	var emer;
+									// 	if (data['data']['member_112'])
+									// 		emer = "112";
+									// 	else
+									// 		emer = data['data']['dispatch']['all'][0];
+
+									// 	curr.find('.currency').text(countryCurrency);
+									// 	curr.find('.sosNumber').text(emer);
+
+									// 	$('.mainWrapper').append(curr);
+									// });
+								});
+							});
+
+							$('.amount').keypress(function(e) {
+								if(e.which == 13) {
+									$.getJSON("https://free.currencyconverterapi.com/api/v5/convert?q=" + $('#convertLeft').val() + "_" + $('#convertRight').val() + "&compact=y", function(data) {
+										$('.conversionResult').text(data[$('#convertLeft').val() + "_" + $('#convertRight').val()].val * $('.amount').val());
+									});
+   								 }
+							});
+						}		
+					});
+				});
+			});
+		});
+	});
 }
 
 function loadDiscover() {
@@ -422,7 +504,7 @@ function googleReady() {
 
 	$('.currWrapper').click(function()
 	{
-
+		loadCurrency();
 	});
 
 	loadHome();
@@ -461,15 +543,13 @@ function googleReady() {
 
 }
 
-function GetStuffFromHere()
+function GetStuffFromHere(country)
 {
-	$.getJSON("https://restcountries.eu/rest/v2/name/" + "USA",function(data)
-	{
+	$.getJSON("https://restcountries.eu/rest/v2/name/" + country, function(data) {
 		var countryCode = data[0].numericCode;
 		var countryCurrency = data[0].currencies[0]["code"];
 
-		$.getJSON("https://free.currencyconverterapi.com/api/v5/convert?q=" + countryCurrency + "_" + "RON" + "&compact=y", function(data)
-		{
+		$.getJSON("https://free.currencyconverterapi.com/api/v5/convert?q=" + countryCurrency + "_" + "RON" + "&compact=y", function(data) {
 			console.log(data[countryCurrency + "_" + "RON"].val);
 		});
 
