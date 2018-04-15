@@ -99,8 +99,6 @@ header
 
 .rightHeader
 {
-	padding-left: 0;
-	padding-right: 0;
   justify-self: right;
 }
 
@@ -447,7 +445,112 @@ input:-moz-placeholder
 	color:rgb(142, 12, 34);
 }
 
+
 #discoverResults
 {
 	padding-bottom: 58px;
+}
+
+input
+{
+    width: calc(100% - 30px);
+    margin-right:15px;
+    margin-left:15px;
+    padding: 10px;
+
+    border:solid;
+    border-width: 1px;
+    border-color: rgb(142, 12, 34);
+    border-radius:5px;
+
+    color: rgb(142, 12, 34);
+    font-size: 15px;
+
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+input[type=submit]
+ {
+   width: auto;
+   float:right;
+   padding: 10px;
+   margin-top:15px;
+   margin-bottom: 15px;
+   background-color:rgba(142, 12, 34, 0.8);
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+input[type=submit]:hover
+{
+    background-color:rgba(142, 12, 34,1);
+}
+
+label
+{
+	text-align: left;
+
+  font-family: appleRegularFont;
+  font-size: 20px;
+
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  margin-right:5px;
+  padding: 10px;
+
+  display: inline-block;
+}
+
+.formWrapper
+{
+	position: fixed;
+	top:0;
+	width: 100%;
+	display:none;
+	grid-template-rows: 100vh;
+	align-items: center;
+
+	background-color: rgba(0,0,0,0.8);
+}
+
+.form
+{
+	justify-self:center;
+
+	background: rgba(255,255,255,0.8);
+  width:100%;
+	max-width: 639px;
+  margin-left: 0;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.fa-times
+{
+	float:right;
+	font-size:24px;
+	padding-left:10px;
+	padding-right: 10px;
+	padding-top: 10px;
+
+	cursor:pointer;
+}
+
+.fa-times:hover
+{
+	color:rgb(142, 12, 34);
+}
+
+.radioWrapper
+{
+	margin-top: 15px;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-items: center;
+	align-items: center;
+	text-align: center;
 }

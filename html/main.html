@@ -11,12 +11,13 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
 		integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/radio.css">
 		<link rel="stylesheet" href="css/media.css">
 	</head>
 
 	<body>
 			<header class="noselect">
-				<div class="leftHeader flexedContainer">
+				<div class="leftHeader flexedContainer">	<!-- Load home when clicked -->
 					<img class="userImage" alt="">
 					<div class="userName"></div>
 				</div>
@@ -26,16 +27,56 @@
 					<div class="appTitle">Venture</div>
 				</div>
 
-				<div class="rightHeader">
-					<i class="fas fa-cog uiElement"></i>
-					<i class="fas fa-sign-out-alt uiElement"></i>
-				</div>
+				<i class="fas fa-sign-out-alt uiElement rightHeader"></i>
 			</header>
 
 			<div class="mainWrapper">
 
 
 			</div>
+
+			<!-- <div id="addTripWrapper" class="formWrapper">
+				<form class="form">
+					<i class="fas fa-times"></i>
+
+					<label for="tripName">Trip name</label>
+					<input type="text" class="tripName" name="tripName" placeholder="Your trip name...">
+
+					<div class="radioWrapper">
+						<p>
+				    <input type="radio" id="leisure" name="radio-group" checked>
+				    <label for="leisure">Leisure</label>
+				  	</p>
+					  <p>
+					    <input type="radio" id="bussiness" name="radio-group">
+					    <label for="bussiness">Bussiness</label>
+					  </p>
+					</div>
+
+					<input type="submit" value="Add trip">
+				</form>
+			</div>
+
+			<div id="addEventWrapper" class="formWrapper">
+				<form class="form">
+					<i class="fas fa-times"></i>
+
+					<label for="eventName">Event name</label>
+					<input type="text" class="eventName" name="eventName" placeholder="Your event name...">
+
+					<label for="eventFrom">From</label>
+					<input type="text" class="eventFrom" name="eventFrom" placeholder="From...">
+
+					<label for="eventTo">To</label>
+					<input type="text" class="eventTo" name="eventTo" placeholder="To...">
+
+					<label for="eventLocation">Event location</label>
+					<input type="text" class="eventLocation" name="eventLocation" placeholder="Your location...">
+
+					<input type="submit" value="Add event">
+				</form>
+			</div> -->
+
 
 			<footer class="noselect">
 				<div class="homeWrapper flexedContainer">
@@ -61,6 +102,7 @@
 			</footer>
 
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="js/datetime.js"></script>
 		<script type="text/javascript" src="js/google.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq_emWPIMmGyv9aX6ns7wtmWQJgTPFoy4&libraries=places"></script>
