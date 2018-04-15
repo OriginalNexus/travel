@@ -1,4 +1,5 @@
 var currentTrip;
+var map;
 
 $(document).ready(function()
 {
@@ -46,7 +47,7 @@ function loadHome() {
 
 					item.click(function() {
 						currentTrip = trip;
-						//loadEvents();
+						loadMap();
 					});
 
 					item.find(".deleteTripButton").click(function() {
@@ -80,7 +81,6 @@ function getHourMinuteFormat(d) {
 function loadEvents() {
 	if (!currentTrip) return;
 	$('.mainWrapper').load('fragments/events.html', function() {
-
 		var start = new Date();
 		var eventStart = new Date(currentTrip['date_start']);
 		if (start.getTime() < eventStart.getTime())
@@ -148,7 +148,7 @@ function loadEvents() {
 					var callback = function(places, status, div) {
 						if (status == google.maps.places.PlacesServiceStatus.OK) {
 							div.find('.seeEventLocation').click(function() {
-								console.log(places[0].place_id);
+								loadMap(places[0]);
 								return false;
 							});
 							$.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + places[0].geometry.location.lat() + '&lon=' +  places[0].geometry.location.lng() + '&appid=1efbdf56565f4baba6b8be5d796bc9dc', function(data) {
@@ -179,6 +179,172 @@ function loadEvents() {
 			$("#addEventWrapper").css("display", "grid");
 		});
 	});
+}
+
+function createMarker(map, place, add) {
+	var contentString;
+	if (add) {
+		contentString = '<h4>' + place.name + '</h4>'
+						+ (place.website ? '<a href="' + place.website + '">' + place.website + '</a>' : '');
+	}
+	else {
+		contentString = '<h4>' + place.name + '</h4>'
+						+ (place.website ? '<a href="' + place.website + '">' + place.website + '</a>' : '');
+	}
+
+	var infowindow = new google.maps.InfoWindow({
+		content: contentString
+	});
+	
+	var marker = new google.maps.Marker({
+		position: place.geometry.location,
+		map: map,
+		title: place.name
+	});
+	marker.addListener('click', function() {
+		infowindow.open(map, marker);
+	});
+
+	return { marker: marker, info: infowindow };
+}
+
+function loadMap(extra) {
+	$('.mainWrapper').load('fragments/map.html', function() {
+		map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 44.434036, lng: 26.101913},
+          zoom: 11,
+          styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
+        });
+		var service = new google.maps.places.PlacesService(map);
+
+        if (!currentTrip) return;
+
+        var start = new Date();
+		var eventStart = new Date(currentTrip['date_start']);
+		if (start.getTime() < eventStart.getTime())
+			start = eventStart;
+
+		gapi.client.calendar.events.list({
+			'calendarId': 'primary',
+			'timeMin': start.toISOString(),
+			'timeMax': (new Date(currentTrip['date_end'])).toISOString(),
+			'showDeleted': false,
+			'singleEvents': true,
+			'orderBy': 'startTime'
+		}).then(function(response) {
+			var events = response.result.items;
+			var latlngbounds = new google.maps.LatLngBounds();
+			$.each(events, function(index, event) {
+				service.textSearch({ query: event.location }, function(places, status) {
+					if (status == google.maps.places.PlacesServiceStatus.OK) {
+						var place = places[0];
+
+						var markInfo = createMarker(map, place, false);
+
+						latlngbounds.extend(place.geometry.location);
+
+						if (extra && extra.place_id == place.place_id) {
+							markInfo.info.open(map, markInfo.marker);
+							extra = null;
+						}
+					}
+
+					if (index + 1 == events.length) {
+						if (extra) {
+							var markInfo = createMarker(map, extra, true);
+							latlngbounds.extend(extra.geometry.location);
+							markInfo.info.open(map, markInfo.marker);
+						}
+						else {
+							map.fitBounds(latlngbounds);
+						}
+					}		
+				});
+			});
+				
+		});
+	});
+
+
 }
 
 function loadDiscover() {
@@ -215,7 +381,7 @@ function loadDiscover() {
 					placeDiv.find('.placeIcon').attr('src', place.icon);
 
 					placeDiv.find('.seePlaceLocation').click(function() {
-						console.log(place.place_id);
+						loadMap(place);
 					});
 
 					$('#discoverResults').append(placeDiv);
@@ -249,6 +415,9 @@ function googleReady() {
 	});
 	$('.discoverWrapper').click(function() {
 		loadDiscover();
+	});
+	$('.mapWrapper').click(function() {
+		loadMap();
 	});
 
 	loadHome();
