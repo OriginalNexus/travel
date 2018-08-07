@@ -35,7 +35,8 @@
         'hour': 'Hours',
         'minute': 'Minutes',
         'second': 'Seconds',
-        'dayperiod': 'Hours'
+        'dayperiod': 'Hours',
+        'dayPeriod': 'Hours'
     };
 
     var FORMAT = {
@@ -389,7 +390,7 @@
             var fnName = (this.props.useUTC ? 'UTC' : '') + hashTypeFn[type],
                 newValue = proxyTime['get' + fnName]();
 
-            if (part.type === 'dayperiod') {
+            if (part.type === 'dayperiod' || part.type === 'dayPeriod') {
                 newValue += operator * 12;
             } else if (part.type === 'weekday') {
                 newValue += operator;
